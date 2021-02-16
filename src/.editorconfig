@@ -10,11 +10,11 @@ end_of_line = crlf
 indent_size = 4
 indent_style = space
 trim_trailing_whitespace = true
+charset = utf-8-bom
 
 # Code files
 [*.{cs,csx,vb,vbx}]
 insert_final_newline = false
-charset = utf-8-bom
 ###############################
 # .NET Coding Conventions     #
 ###############################
