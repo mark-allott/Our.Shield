@@ -63,7 +63,7 @@ namespace Our.Shield.Swagger.Models
             var regex = job.PathToRegex("swagger");
             job.IgnoreWebRequest(regex);
 
-            if (!c.Enable || !job.Environment.Enable)
+            if (!c.Enable || !job.Environment.Enabled)
             {
                 job.WatchWebRequests(PipeLineStages.AuthenticateRequest, regex, 500000, (count, httpApp) => new WatchResponse(Cycle.Error));
                 return true;

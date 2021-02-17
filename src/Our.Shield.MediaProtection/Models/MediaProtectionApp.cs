@@ -84,7 +84,7 @@ namespace Our.Shield.MediaProtection.Models
                 return false;
             }
 
-            if (!config.Enable || !job.Environment.Enable)
+            if (!config.Enable || !job.Environment.Enabled)
             {
                 return true;
             }

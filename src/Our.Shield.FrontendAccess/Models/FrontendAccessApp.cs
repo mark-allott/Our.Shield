@@ -71,7 +71,7 @@ namespace Our.Shield.FrontendAccess.Models
                 return false;
             }
 
-            if (!c.Enable || !job.Environment.Enable)
+            if (!c.Enable || !job.Environment.Enabled)
             {
                 return true;
             }

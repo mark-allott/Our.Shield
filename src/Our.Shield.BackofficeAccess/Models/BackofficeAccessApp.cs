@@ -147,7 +147,7 @@ namespace Our.Shield.BackofficeAccess.Models
 
             var defaultUmbracoLocation = ((BackofficeAccessConfiguration)DefaultConfiguration).BackendAccessUrl.EnsureStartsWith('/').EnsureEndsWith('/');
             var onDiscUmbracoLocation = Configuration.UmbracoPath.EnsureStartsWith('/').EnsureEndsWith('/');
-            var virtualUmbracoLocation = config.Enable && job.Environment.Enable
+            var virtualUmbracoLocation = config.Enable && job.Environment.Enabled
                 ? config.BackendAccessUrl.EnsureStartsWith('/').EnsureEndsWith('/')
                 : defaultUmbracoLocation;
 
@@ -170,7 +170,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     false);
             }
 
-            if (config.Enable && job.Environment.Enable && config.Unauthorized.TransferType != TransferType.PlayDead)
+            if (config.Enable && job.Environment.Enabled && config.Unauthorized.TransferType != TransferType.PlayDead)
             {
                 job.ExceptionWebRequest(config.Unauthorized.Url);
             }
@@ -217,7 +217,7 @@ namespace Our.Shield.BackofficeAccess.Models
                 });
             }
 
-            if (!config.Enable || !job.Environment.Enable)
+            if (!config.Enable || !job.Environment.Enabled)
             {
                 return true;
             }

@@ -67,7 +67,7 @@ namespace Our.Shield.SiteMaintenance.Models
             ApplicationContext.Current.ApplicationCache.RuntimeCache.ClearCacheItem(_allowKey);
             job.UnwatchWebRequests();
 
-            if (!c.Enable || !job.Environment.Enable)
+            if (!c.Enable || !job.Environment.Enabled)
             {
                 return true;
             }
