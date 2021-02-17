@@ -37,7 +37,7 @@ namespace Our.Shield.ScraperDefense.Models
                 return false;
             }
 
-            if (!config.Enable || !job.Environment.Enable)
+            if (!config.Enable || !job.Environment.Enabled)
             {
                 return true;
             }

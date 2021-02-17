@@ -1,16 +1,17 @@
-﻿using Umbraco.Core.Services;
+﻿using Umbraco.Core.Models;
+using Umbraco.Core.Services;
 
 namespace Our.Shield.MediaProtection.Models
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class UmbracoDataTypes
     {
         private readonly IDataTypeService _dataTypeService;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="dataTypeService"></param>
         public UmbracoDataTypes(IDataTypeService dataTypeService)
@@ -19,45 +20,49 @@ namespace Our.Shield.MediaProtection.Models
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition Text =>
-            _dataTypeService.GetDataType(-88);
+        public IDataType Text =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.Textbox);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition Label =>
-            _dataTypeService.GetDataTypeDefinitionById(-92);
+        public IDataType Label =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.LabelString);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition Upload =>
-            _dataTypeService.GetDataTypeDefinitionById(-90);
+        public IDataType Upload =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.Upload);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition MediaListView =>
-            _dataTypeService.GetDataTypeDefinitionById(Umbraco.Core.Constants.System.DefaultMediaListViewDataTypeId);
+        public IDataType MediaListView =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.DefaultMediaListView);
 
         /// <summary>
-        /// 
         /// </summary>
-        public IDataTypeDefinition Date =>
-            _dataTypeService.GetDataTypeDefinitionById(-41);
+        /// <remarks>
+        /// As of 17-02-2021, no definition exists in the Umbraco.Core.Constants namespace for the
+        /// Datepicker node, although the node type does have values for it in the
+        /// Umbraco.Core.Constants.Guids namespace to represent the string and Guid values for it
+        /// </remarks>
+        public IDataType Date =>
+            _dataTypeService.GetDataType(-41);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition TrueFalse =>
-            _dataTypeService.GetDataTypeDefinitionById(-49);
+        public IDataType TrueFalse =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.Boolean);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public IDataTypeDefinition ImageCropper =>
-            _dataTypeService.GetDataTypeDefinitionById(1043);
+        public IDataType ImageCropper =>
+            _dataTypeService.GetDataType(Umbraco.Core.Constants.DataTypes.ImageCropper);
     }
 }

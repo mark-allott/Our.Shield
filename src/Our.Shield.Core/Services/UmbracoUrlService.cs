@@ -49,7 +49,7 @@ namespace Our.Shield.Core.Services
             //    return null;
             //}
 
-            //if (umbracoUrl.Type == UmbracoUrlTypes.Url)
+            //if (umbracoUrl.Type == UmbracoUrlType.Url)
             //{
             //    return umbracoUrl.Value;
             //}
@@ -72,7 +72,7 @@ namespace Our.Shield.Core.Services
             //    var umbracoContentService = new UmbracoContentService(umbContext);
             //    switch (umbracoUrl.Type)
             //    {
-            //        case UmbracoUrlTypes.XPath:
+            //        case UmbracoUrlType.XPath:
             //            var xpathId = umbracoContentService.XPath(umbracoUrl.Value);
             //            if (xpathId != null)
             //                return umbracoContentService.Url((int)xpathId);
@@ -80,7 +80,7 @@ namespace Our.Shield.Core.Services
             //            LogHelper.Error<UmbracoUrlService>($"Error: Unable to find content using xpath of '{umbracoUrl.Value}'", null);
             //            break;
 
-            //        case UmbracoUrlTypes.ContentPicker:
+            //        case UmbracoUrlType.ContentPicker:
             //            if (int.TryParse(umbracoUrl.Value, out var id))
             //                return umbracoContentService.Url(id);
 
@@ -111,7 +111,7 @@ namespace Our.Shield.Core.Services
             //    return false;
             //}
 
-            //if (umbracoUrl.Type == UmbracoUrlTypes.XPath || umbracoUrl.Type == UmbracoUrlTypes.ContentPicker)
+            //if (umbracoUrl.Type == UmbracoUrlType.XPath || umbracoUrl.Type == UmbracoUrlType.ContentPicker)
             //{
             //    return true;
             //}

@@ -1,4 +1,5 @@
 ﻿using Our.Shield.Core.Attributes;
+using Our.Shield.Core.Enums;
 using Our.Shield.Core.Helpers;
 using Our.Shield.Core.Models;
 using Our.Shield.Core.Operation;
@@ -43,10 +44,10 @@ namespace Our.Shield.SiteMaintenance.Models
                 },
                 Unauthorized = new TransferUrl
                 {
-                    TransferType = TransferTypes.Redirect,
+                    TransferType = TransferType.Redirect,
                     Url = new UmbracoUrl
                     {
-                        Type = UmbracoUrlTypes.Url,
+                        Type = UmbracoUrlType.Url,
                         Value = string.Empty
                     }
                 }
@@ -59,14 +60,14 @@ namespace Our.Shield.SiteMaintenance.Models
         }
 
         private readonly string _allowKey = Guid.NewGuid().ToString();
-        
+
         /// <inheritdoc />
         public override bool Execute(IJob job, IAppConfiguration c)
         {
             ApplicationContext.Current.ApplicationCache.RuntimeCache.ClearCacheItem(_allowKey);
             job.UnwatchWebRequests();
 
-            if (!c.Enable || !job.Environment.Enable)
+            if (!c.Enable || !job.Environment.Enabled)
             {
                 return true;
             }
@@ -90,7 +91,7 @@ namespace Our.Shield.SiteMaintenance.Models
                     return new WatchResponse(config.Unauthorized);
                 }
 
-                return new WatchResponse(WatchResponse.Cycles.Continue);
+                return new WatchResponse(Cycle.Continue);
             });
 
             return true;

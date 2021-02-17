@@ -1,4 +1,5 @@
 ﻿using Our.Shield.Core.Attributes;
+using Our.Shield.Core.Enums;
 using Our.Shield.Core.Models;
 using Our.Shield.Core.Operation;
 using Our.Shield.Core.Services;
@@ -83,7 +84,7 @@ namespace Our.Shield.MediaProtection.Models
                 return false;
             }
 
-            if (!config.Enable || !job.Environment.Enable)
+            if (!config.Enable || !job.Environment.Enabled)
             {
                 return true;
             }
@@ -117,11 +118,11 @@ namespace Our.Shield.MediaProtection.Models
                         referrer.Host.Equals(httpApp.Request.Url.Host, StringComparison.InvariantCultureIgnoreCase) ||
                         domains.Any(x => x.Equals(referrer.Host, StringComparison.InvariantCultureIgnoreCase)))
                     {
-                        //  This media is being accessed directly, 
+                        //  This media is being accessed directly,
                         //  or from a browser that doesn't pass referrer info,
                         //  or from our own domain
                         //  so allow access
-                        return new WatchResponse(WatchResponse.Cycles.Continue);
+                        return new WatchResponse(Cycle.Continue);
                     }
 
                     job.WriteJournal(new JournalMessage($"Access was denied, {httpApp.Context.Request.UserHostAddress} from {referrer.Host} was trying to hotlink your media assets"));
@@ -129,7 +130,7 @@ namespace Our.Shield.MediaProtection.Models
                     //  Someone is trying to hotlink our media
                     httpApp.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     httpApp.Response.End();
-                    return new WatchResponse(WatchResponse.Cycles.Stop);
+                    return new WatchResponse(Cycle.Stop);
                 });
             }
 
@@ -146,7 +147,7 @@ namespace Our.Shield.MediaProtection.Models
                 //  If we have logged in as a backend user, then allow all access
                 if (httpContext.AuthenticateCurrentRequest(umbAuthTicket, true))
                 {
-                    return new WatchResponse(WatchResponse.Cycles.Continue);
+                    return new WatchResponse(Cycle.Continue);
                 }
 
                 var filename = httpApp.Request.Url.LocalPath;
@@ -180,7 +181,7 @@ namespace Our.Shield.MediaProtection.Models
 
                     var traverseId = mediaId;
 
-                    //  We traverse up the ancestors until we either hit the root, or find our access rights 
+                    //  We traverse up the ancestors until we either hit the root, or find our access rights
                     //  from either our special alias value or a cache value from a previous request
                     while (traverseId != null)
                     {
@@ -247,7 +248,7 @@ namespace Our.Shield.MediaProtection.Models
                         (httpApp.Context.User != null && httpApp.Context.User.Identity.IsAuthenticated))
                     {
                         //  They are allowed to view this media
-                        return new WatchResponse(WatchResponse.Cycles.Continue);
+                        return new WatchResponse(Cycle.Continue);
                     }
                 }
 
@@ -256,13 +257,13 @@ namespace Our.Shield.MediaProtection.Models
                     if (ints.Length == 0)
                     {
                         //  They are allowed to view this media
-                        return new WatchResponse(WatchResponse.Cycles.Continue);
+                        return new WatchResponse(Cycle.Continue);
                     }
 
                     if (httpApp.Context.User.Identity.IsAuthenticated)
                     {
                         //  TODO: Need to handle when security is member group based
-                        return new WatchResponse(WatchResponse.Cycles.Continue);
+                        return new WatchResponse(Cycle.Continue);
                     }
                 }
                 job.WriteJournal(new JournalMessage($"An unauthenticated member tried to access {filename} with IP Address: {httpApp.Context.Request.UserHostAddress}"));
@@ -270,7 +271,7 @@ namespace Our.Shield.MediaProtection.Models
                 //  You need to be logged in or be a member of the correct member group to see this media
                 httpApp.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 httpApp.Response.End();
-                return new WatchResponse(WatchResponse.Cycles.Stop);
+                return new WatchResponse(Cycle.Stop);
 
             });
 
