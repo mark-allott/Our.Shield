@@ -65,7 +65,7 @@ namespace Our.Shield.Swagger.Models
 
             if (!c.Enable || !job.Environment.Enable)
             {
-                job.WatchWebRequests(PipeLineStages.AuthenticateRequest, regex, 500000, (count, httpApp) => new WatchResponse(WatchResponse.Cycles.Error));
+                job.WatchWebRequests(PipeLineStages.AuthenticateRequest, regex, 500000, (count, httpApp) => new WatchResponse(Cycle.Error));
                 return true;
             }
 
@@ -91,14 +91,14 @@ namespace Our.Shield.Swagger.Models
                 {
                     httpApp.Context.Items.Add(_allowKey, true);
                 }
-                return new WatchResponse(WatchResponse.Cycles.Continue);
+                return new WatchResponse(Cycle.Continue);
             });
 
             job.WatchWebRequests(PipeLineStages.AuthenticateRequest, regex, 500500, (count, httpApp) =>
             {
                 if ((bool?)httpApp.Context.Items[_allowKey] == true || (config.UmbracoUserEnable && AccessHelper.IsRequestAuthenticatedUmbracoUser(httpApp)))
                 {
-                    return new WatchResponse(WatchResponse.Cycles.Continue);
+                    return new WatchResponse(Cycle.Continue);
                 }
 
                 job.WriteJournal(new JournalMessage($"User with IP Address: {httpApp.Context.Request.UserHostAddress}; tried to access {httpApp.Context.Request.Url}. Access was denied"));

@@ -91,7 +91,7 @@ namespace Our.Shield.SiteMaintenance.Models
                     return new WatchResponse(config.Unauthorized);
                 }
 
-                return new WatchResponse(WatchResponse.Cycles.Continue);
+                return new WatchResponse(Cycle.Continue);
             });
 
             return true;

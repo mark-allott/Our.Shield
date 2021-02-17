@@ -209,11 +209,11 @@ namespace Our.Shield.BackofficeAccess.Models
                         || !string.IsNullOrEmpty(httpApp.Context.Request.CurrentExecutionFilePathExtension)
                         || AccessHelper.IsRequestAuthenticatedUmbracoUser(httpApp))
                     {
-                        return new WatchResponse(WatchResponse.Cycles.Continue);
+                        return new WatchResponse(Cycle.Continue);
                     }
 
                     httpApp.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    return new WatchResponse(WatchResponse.Cycles.Stop);
+                    return new WatchResponse(Cycle.Stop);
                 });
             }
 
@@ -233,7 +233,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     || _ipAccessControlService.IsValid(config.IpAccessRules, httpApp.Context.Request)
                     || config.ExcludeUrls.Any(x => httpApp.Request.Url.AbsolutePath.StartsWith(x.EnsureStartsWith('/'), StringComparison.OrdinalIgnoreCase)))
                 {
-                    return new WatchResponse(WatchResponse.Cycles.Continue);
+                    return new WatchResponse(Cycle.Continue);
                 }
 
                 job.WriteJournal(new JournalMessage($"User with IP Address: {httpApp.Context.Request.UserHostAddress}; tried to access the backoffice access url. Access was denied"));
