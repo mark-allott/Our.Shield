@@ -1,4 +1,5 @@
 ﻿using Our.Shield.Core.Attributes;
+using Our.Shield.Core.Enums;
 using Our.Shield.Core.Helpers;
 using Our.Shield.Core.Models;
 using Our.Shield.Core.Operation;
@@ -56,7 +57,7 @@ namespace Our.Shield.BackofficeAccess.Models
             },
             Unauthorized = new TransferUrl
             {
-                TransferType = TransferTypes.Redirect,
+                TransferType = TransferType.Redirect,
                 Url = new UmbracoUrl
                 {
                     Type = UmbracoUrlTypes.Url,
@@ -79,7 +80,7 @@ namespace Our.Shield.BackofficeAccess.Models
             {
                 var path = httpApp.Request.Url.AbsolutePath.EnsureEndsWith('/');
                 var rewritePath = onDiscUmbracoLocation + path.Substring(virtualUmbracoLocation.Length);
-                
+
                 if (!string.IsNullOrEmpty(httpApp.Context.Request.CurrentExecutionFilePathExtension))
                 {
                     if (httpApp.Context.Request.CurrentExecutionFilePathExtension.Equals(".aspx")
@@ -89,7 +90,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     {
                         return new WatchResponse(new TransferUrl
                         {
-                            TransferType = TransferTypes.TransferRequest,
+                            TransferType = TransferType.TransferRequest,
                             Url = new UmbracoUrl
                             {
                                 Type = UmbracoUrlTypes.Url,
@@ -100,7 +101,7 @@ namespace Our.Shield.BackofficeAccess.Models
 
                     return new WatchResponse(new TransferUrl
                     {
-                        TransferType = TransferTypes.TransmitFile,
+                        TransferType = TransferType.TransmitFile,
                         Url = new UmbracoUrl
                         {
                             Type = UmbracoUrlTypes.Url,
@@ -108,13 +109,13 @@ namespace Our.Shield.BackofficeAccess.Models
                         }
                     });
                 }
-                
+
                 httpApp.Context.Items.Add(_allowKey, true);
                 rewritePath += httpApp.Request.Url.Query;
-                
+
                 return new WatchResponse(new TransferUrl
                 {
-                    TransferType = rewrite ? TransferTypes.Rewrite : TransferTypes.Redirect,
+                    TransferType = rewrite ? TransferType.Rewrite : TransferType.Redirect,
                     Url = new UmbracoUrl
                     {
                         Type = UmbracoUrlTypes.Url,
@@ -169,7 +170,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     false);
             }
 
-            if (config.Enable && job.Environment.Enable && config.Unauthorized.TransferType != TransferTypes.PlayDead)
+            if (config.Enable && job.Environment.Enable && config.Unauthorized.TransferType != TransferType.PlayDead)
             {
                 job.ExceptionWebRequest(config.Unauthorized.Url);
             }
@@ -215,7 +216,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     return new WatchResponse(WatchResponse.Cycles.Stop);
                 });
             }
-            
+
             if (!config.Enable || !job.Environment.Enable)
             {
                 return true;

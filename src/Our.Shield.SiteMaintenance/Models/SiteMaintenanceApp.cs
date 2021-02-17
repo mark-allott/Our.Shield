@@ -1,4 +1,5 @@
 ﻿using Our.Shield.Core.Attributes;
+using Our.Shield.Core.Enums;
 using Our.Shield.Core.Helpers;
 using Our.Shield.Core.Models;
 using Our.Shield.Core.Operation;
@@ -43,7 +44,7 @@ namespace Our.Shield.SiteMaintenance.Models
                 },
                 Unauthorized = new TransferUrl
                 {
-                    TransferType = TransferTypes.Redirect,
+                    TransferType = TransferType.Redirect,
                     Url = new UmbracoUrl
                     {
                         Type = UmbracoUrlTypes.Url,
@@ -59,7 +60,7 @@ namespace Our.Shield.SiteMaintenance.Models
         }
 
         private readonly string _allowKey = Guid.NewGuid().ToString();
-        
+
         /// <inheritdoc />
         public override bool Execute(IJob job, IAppConfiguration c)
         {

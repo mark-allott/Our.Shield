@@ -1,4 +1,5 @@
 ﻿using Our.Shield.Core.Attributes;
+using Our.Shield.Core.Enums;
 using Our.Shield.Core.Helpers;
 using Our.Shield.Core.Models;
 using Our.Shield.Core.Operation;
@@ -47,7 +48,7 @@ namespace Our.Shield.FrontendAccess.Models
             },
             Unauthorized = new TransferUrl
             {
-                TransferType = TransferTypes.Redirect,
+                TransferType = TransferType.Redirect,
                 Url = new UmbracoUrl
                 {
                     Type = UmbracoUrlTypes.Url,
@@ -80,7 +81,7 @@ namespace Our.Shield.FrontendAccess.Models
                 job.WriteJournal(new JournalMessage($"Error: Invalid IP Address {error}, unable to add to exception list"));
             }
 
-            if (config.Unauthorized.TransferType != TransferTypes.PlayDead)
+            if (config.Unauthorized.TransferType != TransferType.PlayDead)
             {
                 job.ExceptionWebRequest(config.Unauthorized.Url);
             }
