@@ -18,7 +18,7 @@ using Umbraco.Core.Services;
 namespace Our.Shield.BackofficeAccess.Models
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [AppEditor("/App_Plugins/Shield.BackofficeAccess/Views/BackofficeAccess.html?version=2.0.0")]
     [AppJournal]
@@ -60,7 +60,7 @@ namespace Our.Shield.BackofficeAccess.Models
                 TransferType = TransferType.Redirect,
                 Url = new UmbracoUrl
                 {
-                    Type = UmbracoUrlTypes.Url,
+                    Type = UmbracoUrlType.Url,
                     Value = string.Empty
                 }
             }
@@ -93,7 +93,7 @@ namespace Our.Shield.BackofficeAccess.Models
                             TransferType = TransferType.TransferRequest,
                             Url = new UmbracoUrl
                             {
-                                Type = UmbracoUrlTypes.Url,
+                                Type = UmbracoUrlType.Url,
                                 Value = rewritePath + httpApp.Request.Url.Query
                             }
                         });
@@ -104,7 +104,7 @@ namespace Our.Shield.BackofficeAccess.Models
                         TransferType = TransferType.TransmitFile,
                         Url = new UmbracoUrl
                         {
-                            Type = UmbracoUrlTypes.Url,
+                            Type = UmbracoUrlType.Url,
                             Value = rewritePath
                         }
                     });
@@ -118,7 +118,7 @@ namespace Our.Shield.BackofficeAccess.Models
                     TransferType = rewrite ? TransferType.Rewrite : TransferType.Redirect,
                     Url = new UmbracoUrl
                     {
-                        Type = UmbracoUrlTypes.Url,
+                        Type = UmbracoUrlType.Url,
                         Value = rewritePath
                     }
                 });

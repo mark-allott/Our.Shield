@@ -51,7 +51,7 @@ namespace Our.Shield.FrontendAccess.Models
                 TransferType = TransferType.Redirect,
                 Url = new UmbracoUrl
                 {
-                    Type = UmbracoUrlTypes.Url,
+                    Type = UmbracoUrlType.Url,
                     Value = string.Empty
                 }
             }
